@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_theming/screens/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/home_page.dart';
 
@@ -12,12 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Theming',
-      themeMode: ThemeMode.system,
-      theme: MyThemes.lightTheme,
-      darkTheme: MyThemes.darkTheme,
-      home: HomePage(),
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      builder: (context, _) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Theming',
+          themeMode: themeProvider.themeMode,
+          theme: MyThemes.lightTheme,
+          darkTheme: MyThemes.darkTheme,
+          home: HomePage(),
+        );
+      },
     );
   }
 }

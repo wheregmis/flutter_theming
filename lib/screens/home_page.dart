@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_theming/screens/navigation_widget.dart';
+import 'package:flutter_theming/screens/profile_widget.dart';
+
+import 'package:flutter_theming/widget/change_theme_button.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final text = MediaQuery.of(context).platformBrightness == Brightness.dark
-        ? 'Dark Theme'
-        : 'Light Theme';
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan.shade900,
+        iconTheme: Theme.of(context).iconTheme,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        leading: Icon(Icons.menu),
         title: Text('Flutter Theming'),
+        actions: [
+          ChangeThemeButtonWidget(),
+        ],
       ),
-      body: Center(
-        child: Text(
-          'Hello $text',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
+      body: ProfileWidget(),
+      extendBody: true,
+      bottomNavigationBar: NavigationBarWidget(),
     );
   }
 }
